@@ -18,3 +18,10 @@ Input is treated as a 32-bit float via `Math.fround` before the bit hack is appl
 ## Edge cases
 
 Non-positive and non-finite inputs return `NaN`. This includes `0`, `-0`, negative numbers, `Infinity`, `-Infinity`, and `NaN`. The implementation does not attempt to handle these cases, as the reciprocal square root is undefined for them.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
